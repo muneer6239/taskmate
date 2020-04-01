@@ -1,0 +1,62 @@
+{% extends 'base.html' %} <!-- we are using this to repliacte the content of base.html file here -->
+
+{% block title %} <!-- here we are editing the title of todolist page -->
+  <title>Todolist Manager-Task Mate</title>
+{% endblock title %}
+
+{% block content %} <!-- here we are editing the content of todolist page -->
+  <div class='container'>
+        <!--<h1>{{ welcome_text }}</h1> (earlier we were printing welcome_text, but now printing all_tasks)-->
+        <br>
+        {% if messages %}
+	        {% for message in messages %}
+	        	<div class="alert alert-info alert-dismissible fade show" role="alert">
+	  				{{ message }}
+	  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  	</button>
+				</div>
+	        {% endfor %}
+        {% endif %}
+        <form method="POST">
+        	{% csrf_token %}
+        	<div class="form-group">
+		    	<input type="text" class="form-control" name="task" placeholder="Add new task">
+		  	</div>
+		  <button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+		<br>
+        <table class="table table-bordered text-center">
+	        <thead class="thead-dark">
+			    <tr class="row">
+			      <th class="col-1">id</th>
+			      <th class="col-5">Task</th>
+			      <th class="col-4">Done</th>
+			      <th class="col-1">Delete</th>
+			      <th class="col-1">Edit</th>
+			    </tr>
+	  		</thead>
+	  		<tbody>
+		        {% for obj in all_tasks %}
+			        {% if obj.done %}
+			        	<tr class="table-success row">
+			        		<td class="col-1">{{ obj.id }}</td>
+			        		<th class="col-5">{{ obj.task }}</th>
+			        		<td class="col-4"><a href="{% url 'pendingTask' obj.id %}"><button type="button" class="btn btn-secondary">Mark this pending</button></td>
+							<td class="col-1"><a href="{% url 'deleteTask' obj.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+							<td class="col-1"><a href="{% url 'editTask' obj.id %}"><button type="button" class="btn btn-warning">Edit</button></a></td>
+						</tr>
+					{% else %}
+						<tr class="row">
+			        		<td class="col-1">{{ obj.id }}</td>
+			        		<th class="col-5">{{ obj.task }}</th>
+			        		<td class="col-4"><a href="{% url 'completeTask' obj.id %}"><button type="button" class="btn btn-secondary">Mark this completed</button></a></td>
+							<td class="col-1"><a href="{% url 'deleteTask' obj.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+							<td class="col-1"><a href="{% url 'editTask' obj.id %}"><button type="button" class="btn btn-warning">Edit</button></a></td>
+						</tr>
+					{% endif %}
+				{% endfor %}	      
+			</tbody>
+		</table>	       
+      </div>
+{% endblock content %}
