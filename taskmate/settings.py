@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-# import django-heroku
+import django-heroku
 import os
 import environ
 
@@ -125,6 +125,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] #we need to register the created directory "static" here
 
@@ -134,4 +135,4 @@ LOGIN_REDIRECT_URL = "todolist" #this will redirect to "todolist" if user is log
 
 LOGIN_URL = "login" #this will redirect to login page if user is not logged in
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
