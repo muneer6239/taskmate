@@ -18,19 +18,23 @@
 				</div>
 	        {% endfor %}
         {% endif %}
-        <form method="POST">
-        	{% csrf_token %}
-        	<div class="form-group">
-		    	<input type="text" class="form-control" name="task" placeholder="Add new task">
-		  	</div>
-		  <button type="submit" class="btn btn-primary">Submit</button>
-		</form>
+
+        <div class="row">
+        	<div class="col-md-6">
+		        <form method="POST">
+		        	{% csrf_token %}
+		        	<div class="form-group">
+				    	<input type="text" class="form-control" name="task" placeholder="Add new task">
+				  	</div>
+				  <button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>	
+		</div>
 		<br>
         <table class="table table-bordered text-center">
 	        <thead class="thead-dark">
 			    <tr class="row">
-			      <th class="col-1">id</th>
-			      <th class="col-5">Task</th>
+			      <th class="col-6">Task</th>
 			      <th class="col-4">Done</th>
 			      <th class="col-1">Delete</th>
 			      <th class="col-1">Edit</th>
@@ -40,16 +44,14 @@
 		        {% for obj in all_tasks %}
 			        {% if obj.done %}
 			        	<tr class="table-success row">
-			        		<td class="col-1">{{ obj.id }}</td>
-			        		<th class="col-5">{{ obj.task }}</th>
+			        		<th class="col-6">{{ obj.task }}</th>
 			        		<td class="col-4"><a href="{% url 'pendingTask' obj.id %}"><button type="button" class="btn btn-secondary">Mark this pending</button></td>
 							<td class="col-1"><a href="{% url 'deleteTask' obj.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
 							<td class="col-1"><a href="{% url 'editTask' obj.id %}"><button type="button" class="btn btn-warning">Edit</button></a></td>
 						</tr>
 					{% else %}
 						<tr class="row">
-			        		<td class="col-1">{{ obj.id }}</td>
-			        		<th class="col-5">{{ obj.task }}</th>
+			        		<th class="col-6">{{ obj.task }}</th>
 			        		<td class="col-4"><a href="{% url 'completeTask' obj.id %}"><button type="button" class="btn btn-secondary">Mark this completed</button></a></td>
 							<td class="col-1"><a href="{% url 'deleteTask' obj.id %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
 							<td class="col-1"><a href="{% url 'editTask' obj.id %}"><button type="button" class="btn btn-warning">Edit</button></a></td>

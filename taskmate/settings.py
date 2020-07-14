@@ -136,3 +136,4 @@ LOGIN_REDIRECT_URL = "todolist" #this will redirect to "todolist" if user is log
 LOGIN_URL = "login" #this will redirect to login page if user is not logged in
 
 django_heroku.settings(locals())
+
